@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import TaskCard from './components/TaskCard'
+import AddTaskForm from './components/AddTaskForm'
 
 function App() {
   
@@ -24,12 +25,15 @@ function App() {
       status:"completed",
     }
   ])
- 
+  const handleAddTask=(task)=>{
+    setTasks([...tasks,task])
+  }
 
   return (
     <div style={{textAlign:"center",margintop:"30rem"}}>
      
-      <h1>Hello TaskShare</h1>
+      <h1>TaskShare-Task Collaboration</h1>
+      <AddTaskForm onAddtask={handleAddTask}/>
      <div style={{display:"flex", justifyContent:"center",flexWrap:"wrap"}}>
         {tasks.map((task)=>{
           return <TaskCard key={task.id} description={task.description} title={task.title} status={task.status}/>
