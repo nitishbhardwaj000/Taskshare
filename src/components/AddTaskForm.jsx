@@ -4,6 +4,7 @@ function AddTaskForm({onAddtask})
 {
     const[title,setTitle]=useState("");
     const[description,setDescription]=useState("");
+    const[status,setStatus]=useState("pending");
     const handleformsubmit=(e)=>{
         e.preventDefault();//prevent default reload for better spped
         if(!title||!description)
@@ -59,6 +60,15 @@ function AddTaskForm({onAddtask})
             style={{ width: "100%", padding: "0.5rem" }}
           />
         </div>
+
+        <div style ={{marginBottom:"1rem"}}>
+            <label>Status</label>
+            <br/>
+            <textarea placeholder="Enter status" value={status} onChange={(e)=>{
+                setStatus(e.target.value)
+            }} style={{ width: "100%", padding: "0.5rem" }} />
+        </div>
+
 
         <button type="submit">Add Task</button>
       </form>

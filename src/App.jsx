@@ -4,10 +4,13 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import TaskCard from './components/TaskCard'
 import AddTaskForm from './components/AddTaskForm'
+import Tasklist from './components/Tasklist'
 
 function App() {
   
+  const [filter,setFilter]=useState("all")
   const [tasks,setTasks]=useState([
+  
     {
       id:"1",
       title:"Task1",
@@ -29,16 +32,38 @@ function App() {
     setTasks([...tasks,task])
   }
 
+      const filteredTasks = tasks.filter((task) => {
+       if (filter === 'all') {
+            return true;
+          }
+        return task.status === filter;
+})
+   
+   function handleToggleStatus(taskId)
+   {
+      const newtasks=tasks.map((task)=>{
+        //toggle tasks 
+        if(task.id===taskId)
+        {
+          const newstatus=task.status==="pending"?"completed":"pending"
+          return {...task,status:newstatus}
+        }else{
+          return task
+        }
+      })
+      setTasks(newtasks)
+   }
+
   return (
     <div style={{textAlign:"center",margintop:"30rem"}}>
      
       <h1>TaskShare-Task Collaboration</h1>
       <AddTaskForm onAddtask={handleAddTask}/>
-     <div style={{display:"flex", justifyContent:"center",flexWrap:"wrap"}}>
-        {tasks.map((task)=>{
-          return <TaskCard key={task.id} description={task.description} title={task.title} status={task.status}/>
-        })}
-    </div>
+      <button onClick={()=>setFilter("all")}>All</button>
+      <button onClick={()=>setFilter("pending")}>Pending</button>
+      <button onClick={()=>setFilter("completed")}>Completed</button>
+      {/* //why and how to knwo if pass handleToggleStatus as props */}
+      <Tasklist tasks={filteredTasks} onToggleStatus={handleToggleStatus}/>
     
     </div>
   )
