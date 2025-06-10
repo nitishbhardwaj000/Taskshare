@@ -38,6 +38,11 @@ function App() {
           }
         return task.status === filter;
 })
+function handleDeleteTask(taskId)
+{
+  const newtasks=tasks.filter((task)=>task.id!==taskId)
+  setTasks(newtasks)
+}
    
    function handleToggleStatus(taskId)
    {
@@ -63,7 +68,9 @@ function App() {
       <button onClick={()=>setFilter("pending")}>Pending</button>
       <button onClick={()=>setFilter("completed")}>Completed</button>
       {/* //why and how to knwo if pass handleToggleStatus as props */}
-      <Tasklist tasks={filteredTasks} onToggleStatus={handleToggleStatus}/>
+      {/* You pass functions like handleDeleteTask to child components when the child needs to trigger a change in the parent's state.
+        This is a standard React pattern called lifting state up. */}
+      <Tasklist tasks={filteredTasks} onToggleStatus={handleToggleStatus} onDeleteTask={handleDeleteTask}/>
     
     </div>
   )

@@ -16,7 +16,7 @@ function Tasklist(props)
             {tasks.map((tas)=>{
                 return(
                     <TaskCard key={tas.id} title={tas.title} description={tas.description} status={tas.status} 
-                    onToggle={()=>props.onToggleStatus(tas.id)}
+                    onToggle={()=>props.onToggleStatus(tas.id)} onDelete={() => props.onDeleteTask(tas.id)}
                     />
                 )
             })}
